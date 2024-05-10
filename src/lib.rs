@@ -1,4 +1,4 @@
-use std::path::PathBuf;
+#![doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/README.md"))]
 
 use figment::{
     providers::{Format, Yaml},
@@ -7,15 +7,27 @@ use figment::{
 use ratatui::style::Color;
 use serde::{Deserialize, Serialize};
 use serde_with::{serde_as, DisplayFromStr};
+use std::path::PathBuf;
 use thiserror::Error;
 
+/// The `Base16PaletteError` enum represents errors that can occur while working
+/// with the Base16 color palette configuration.
 #[derive(Error, Debug)]
 #[non_exhaustive]
 pub enum Base16PaletteError {
+    /// This error occurs when the extraction of data from a file or configuration fails.
+    ///
+    /// This variant encapsulates a `figment::Error`, indicating that it originated
+    /// from the Figment configuration library, which might be used to handle configuration
+    /// data in various formats like JSON, TOML, YAML, etc.
     #[error("unable to extract data from file")]
     ExtractionFailed(#[from] figment::Error),
 }
 
+/// A `Base16Palette` defines a color palette based on the Base16 styling guidelines.
+/// These color codes are typically used to create themes for syntax highlighting,
+/// terminal emulators, and other developer tools. Each field represents a different
+/// element of the user interface that can be customized.
 #[serde_as]
 #[derive(Debug, Clone, Copy, Deserialize, Serialize)]
 pub struct Base16Palette {
@@ -79,7 +91,7 @@ pub struct Base16Palette {
     #[serde_as(as = "DisplayFromStr")]
     pub base0e: Color,
 
-    /// Deprecated, Opening/Closing Embedded Language Tags e.g., `<? ?>`
+    /// Deprecated, Opening/Closing Embedded Language Tags
     #[serde_as(as = "DisplayFromStr")]
     pub base0f: Color,
 }

@@ -6,15 +6,15 @@ ratatui-base16 is a base16 palette library for [Ratatui](https://github.com/rata
 
 To get started, first add it to your Cargo.toml dependencies:
 
-```
-cargo add ratatui-base16
+```shell
+$ cargo add ratatui-base16
 ```
 
-Creating a new status bar is simple. Here's a quick example:
+Creating a `Base16Palette` is simple. Here's a quick example:
 
 ```rust
 use ratatui_base16::Base16Palette;
-let palette = Base16Palette::from_yaml("./config/dracula.yaml")?
+let palette = Base16Palette::from_yaml("./config/dracula.yaml");
 ```
 
 ## Contributing

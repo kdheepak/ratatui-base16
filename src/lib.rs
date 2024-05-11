@@ -189,8 +189,8 @@ impl Base16Palette {
     /// # Arguments
     ///
     /// * `file`: The file path pointing to the YAML configuration file. The
-    ///   file path
-    /// type is generic and can be any type that implements `Into<PathBuf>`.
+    ///   file path type is generic and can be any type that implements
+    ///   `Into<PathBuf>`.
     ///
     /// # Returns
     ///
@@ -221,8 +221,8 @@ impl Base16Palette {
     /// # Arguments
     ///
     /// * `file`: The file path pointing to the TOML configuration file. The
-    ///   file path
-    /// type is generic and can be any type that implements `Into<PathBuf>`.
+    ///   file path type is generic and can be any type that implements
+    ///   `Into<PathBuf>`.
     ///
     /// # Returns
     ///

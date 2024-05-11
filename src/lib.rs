@@ -13,53 +13,6 @@ use std::path::PathBuf;
 use std::str::FromStr;
 use thiserror::Error;
 
-macro_rules! palette {
-    (
-        $name:ident,
-        scheme : $scheme:literal,
-        author : $author:literal,
-        slug : $slug:literal,
-        base00 : $base00:literal,
-        base01 : $base01:literal,
-        base02 : $base02:literal,
-        base03 : $base03:literal,
-        base04 : $base04:literal,
-        base05 : $base05:literal,
-        base06 : $base06:literal,
-        base07 : $base07:literal,
-        base08 : $base08:literal,
-        base09 : $base09:literal,
-        base0a : $base0a:literal,
-        base0b : $base0b:literal,
-        base0c : $base0c:literal,
-        base0d : $base0d:literal,
-        base0e : $base0e:literal,
-        base0f : $base0f:literal,
-    ) => {
-        pub const $name: $crate::Base16Palette = $crate::Base16Palette {
-            name: $scheme,
-            author: $author,
-            slug: $slug,
-            base00: ratatui::style::Color::from_u32($base00),
-            base01: ratatui::style::Color::from_u32($base01),
-            base02: ratatui::style::Color::from_u32($base02),
-            base03: ratatui::style::Color::from_u32($base03),
-            base04: ratatui::style::Color::from_u32($base04),
-            base05: ratatui::style::Color::from_u32($base05),
-            base06: ratatui::style::Color::from_u32($base06),
-            base07: ratatui::style::Color::from_u32($base07),
-            base08: ratatui::style::Color::from_u32($base08),
-            base09: ratatui::style::Color::from_u32($base09),
-            base0a: ratatui::style::Color::from_u32($base0a),
-            base0b: ratatui::style::Color::from_u32($base0b),
-            base0c: ratatui::style::Color::from_u32($base0c),
-            base0d: ratatui::style::Color::from_u32($base0d),
-            base0e: ratatui::style::Color::from_u32($base0e),
-            base0f: ratatui::style::Color::from_u32($base0f),
-        };
-    };
-}
-
 /// The `Base16PaletteError` enum represents errors that can occur while working
 /// with the Base16 color palette configuration.
 #[derive(Error, Debug)]
@@ -254,6 +207,53 @@ where
     } else {
         Color::from_str(&format!("#{s}")).map_err(de::Error::custom)
     }
+}
+
+macro_rules! palette {
+    (
+        $name:ident,
+        scheme : $scheme:literal,
+        author : $author:literal,
+        slug : $slug:literal,
+        base00 : $base00:literal,
+        base01 : $base01:literal,
+        base02 : $base02:literal,
+        base03 : $base03:literal,
+        base04 : $base04:literal,
+        base05 : $base05:literal,
+        base06 : $base06:literal,
+        base07 : $base07:literal,
+        base08 : $base08:literal,
+        base09 : $base09:literal,
+        base0a : $base0a:literal,
+        base0b : $base0b:literal,
+        base0c : $base0c:literal,
+        base0d : $base0d:literal,
+        base0e : $base0e:literal,
+        base0f : $base0f:literal,
+    ) => {
+        pub const $name: $crate::Base16Palette = $crate::Base16Palette {
+            name: $scheme,
+            author: $author,
+            slug: $slug,
+            base00: ratatui::style::Color::from_u32($base00),
+            base01: ratatui::style::Color::from_u32($base01),
+            base02: ratatui::style::Color::from_u32($base02),
+            base03: ratatui::style::Color::from_u32($base03),
+            base04: ratatui::style::Color::from_u32($base04),
+            base05: ratatui::style::Color::from_u32($base05),
+            base06: ratatui::style::Color::from_u32($base06),
+            base07: ratatui::style::Color::from_u32($base07),
+            base08: ratatui::style::Color::from_u32($base08),
+            base09: ratatui::style::Color::from_u32($base09),
+            base0a: ratatui::style::Color::from_u32($base0a),
+            base0b: ratatui::style::Color::from_u32($base0b),
+            base0c: ratatui::style::Color::from_u32($base0c),
+            base0d: ratatui::style::Color::from_u32($base0d),
+            base0e: ratatui::style::Color::from_u32($base0e),
+            base0f: ratatui::style::Color::from_u32($base0f),
+        };
+    };
 }
 
 palette! {

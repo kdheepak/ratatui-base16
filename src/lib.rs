@@ -5,9 +5,12 @@ use figment::{
     Figment,
 };
 use ratatui::style::Color;
+use serde::de;
+use serde::de::Deserializer;
 use serde::{Deserialize, Serialize};
-use serde_with::{serde_as, DisplayFromStr};
+use serde_with::serde_as;
 use std::path::PathBuf;
+use std::str::FromStr;
 use thiserror::Error;
 
 /// The `Base16PaletteError` enum represents errors that can occur while working
@@ -47,71 +50,72 @@ pub enum Base16PaletteError {
 /// dark.
 #[serde_as]
 #[derive(Debug, Clone, Copy, Deserialize, Serialize)]
+#[serde(rename_all = "snake_case")]
 pub struct Base16Palette {
     /// Default Background
-    #[serde_as(as = "DisplayFromStr")]
+    #[serde(deserialize_with = "deserialize_from_str")]
     pub base00: Color,
 
     /// Lighter Background (Used for status bars, line number and folding marks)
-    #[serde_as(as = "DisplayFromStr")]
+    #[serde(deserialize_with = "deserialize_from_str")]
     pub base01: Color,
 
     /// Selection Background (Settings where you need to highlight text, such as
     /// find results)
-    #[serde_as(as = "DisplayFromStr")]
+    #[serde(deserialize_with = "deserialize_from_str")]
     pub base02: Color,
 
     /// Comments, Invisibles, Line Highlighting
-    #[serde_as(as = "DisplayFromStr")]
+    #[serde(deserialize_with = "deserialize_from_str")]
     pub base03: Color,
 
     /// Dark Foreground (Used for status bars)
-    #[serde_as(as = "DisplayFromStr")]
+    #[serde(deserialize_with = "deserialize_from_str")]
     pub base04: Color,
 
     /// Default Foreground, Caret, Delimiters, Operators
-    #[serde_as(as = "DisplayFromStr")]
+    #[serde(deserialize_with = "deserialize_from_str")]
     pub base05: Color,
 
     /// Light Foreground (Not often used, could be used for hover states or
     /// dividers)
-    #[serde_as(as = "DisplayFromStr")]
+    #[serde(deserialize_with = "deserialize_from_str")]
     pub base06: Color,
 
     /// Light Background (Probably at most for cursor line background color)
-    #[serde_as(as = "DisplayFromStr")]
+    #[serde(deserialize_with = "deserialize_from_str")]
     pub base07: Color,
 
     /// Variables, XML Tags, Markup Link Text, Markup Lists, Diff Deleted
-    #[serde_as(as = "DisplayFromStr")]
+    #[serde(deserialize_with = "deserialize_from_str")]
     pub base08: Color,
 
     /// Integers, Boolean, Constants, XML Attributes, Markup Link Url
-    #[serde_as(as = "DisplayFromStr")]
+    #[serde(deserialize_with = "deserialize_from_str")]
     pub base09: Color,
 
     /// Classes, Markup Bold, Search Text Background
-    #[serde_as(as = "DisplayFromStr")]
+    #[serde(deserialize_with = "deserialize_from_str")]
     pub base0a: Color,
 
     /// Strings, Inherited Class, Markup Code, Diff Inserted
-    #[serde_as(as = "DisplayFromStr")]
+    #[serde(deserialize_with = "deserialize_from_str")]
     pub base0b: Color,
 
     /// Support, Regular Expressions, Escape Characters, Markup Quotes
-    #[serde_as(as = "DisplayFromStr")]
+    #[serde(deserialize_with = "deserialize_from_str")]
     pub base0c: Color,
 
     /// Functions, Methods, Attribute IDs, Headings
-    #[serde_as(as = "DisplayFromStr")]
+    #[serde(deserialize_with = "deserialize_from_str")]
     pub base0d: Color,
 
     /// Keywords, Storage, Selector, Markup Bold, Diff Changed
-    #[serde_as(as = "DisplayFromStr")]
+    #[serde(deserialize_with = "deserialize_from_str")]
     pub base0e: Color,
 
     /// Deprecated, Opening/Closing Embedded Language Tags, e.g. `<?php ?>
-    #[serde_as(as = "DisplayFromStr")]
+    #[serde(deserialize_with = "deserialize_from_str")]
     pub base0f: Color,
 }
 
@@ -181,12 +185,28 @@ impl Base16Palette {
     }
 }
 
+fn deserialize_from_str<'de, D>(deserializer: D) -> Result<Color, D::Error>
+where
+    D: Deserializer<'de>,
+{
+    let s = String::deserialize(deserializer)?;
+    if s.starts_with('#') {
+        Color::from_str(&s).map_err(de::Error::custom)
+    } else {
+        Color::from_str(&format!("#{s}")).map_err(de::Error::custom)
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
 
     #[test]
     fn read_from_yaml() {
+        let mut file = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+        file.push("./.config/dracula.yaml");
+        let _ = Base16Palette::from_yaml(file).unwrap();
+
         let mut file = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
         file.push("./.config/github.yaml");
         let _ = Base16Palette::from_yaml(file).unwrap();

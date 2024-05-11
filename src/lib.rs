@@ -13,6 +13,53 @@ use std::path::PathBuf;
 use std::str::FromStr;
 use thiserror::Error;
 
+macro_rules! palette {
+    (
+        $name:ident,
+        $schema:literal,
+        $author:literal,
+        $slug:literal,
+        $base00:literal,
+        $base01:literal,
+        $base02:literal,
+        $base03:literal,
+        $base04:literal,
+        $base05:literal,
+        $base06:literal,
+        $base07:literal,
+        $base08:literal,
+        $base09:literal,
+        $base0a:literal,
+        $base0b:literal,
+        $base0c:literal,
+        $base0d:literal,
+        $base0e:literal,
+        $base0f:literal,
+    ) => {
+        pub const $name: $crate::Base16Palette = $crate::Base16Palette {
+            name: $schema,
+            author: $author,
+            slug: $slug,
+            base00: ratatui::style::Color::from_u32($base00),
+            base01: ratatui::style::Color::from_u32($base01),
+            base02: ratatui::style::Color::from_u32($base02),
+            base03: ratatui::style::Color::from_u32($base03),
+            base04: ratatui::style::Color::from_u32($base04),
+            base05: ratatui::style::Color::from_u32($base05),
+            base06: ratatui::style::Color::from_u32($base06),
+            base07: ratatui::style::Color::from_u32($base07),
+            base08: ratatui::style::Color::from_u32($base08),
+            base09: ratatui::style::Color::from_u32($base09),
+            base0a: ratatui::style::Color::from_u32($base0a),
+            base0b: ratatui::style::Color::from_u32($base0b),
+            base0c: ratatui::style::Color::from_u32($base0c),
+            base0d: ratatui::style::Color::from_u32($base0d),
+            base0e: ratatui::style::Color::from_u32($base0e),
+            base0f: ratatui::style::Color::from_u32($base0f),
+        };
+    };
+}
+
 /// The `Base16PaletteError` enum represents errors that can occur while working
 /// with the Base16 color palette configuration.
 #[derive(Error, Debug)]
@@ -49,9 +96,21 @@ pub enum Base16PaletteError {
 /// dark to light. For a light theme, these colours should span from light to
 /// dark.
 #[serde_as]
-#[derive(Debug, Clone, Copy, Deserialize, Serialize)]
+#[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(rename_all = "snake_case")]
 pub struct Base16Palette {
+    /// Name
+    #[serde(skip, alias = "scheme")]
+    pub name: &'static str,
+
+    /// Author
+    #[serde(skip)]
+    pub author: &'static str,
+
+    /// Default Background
+    #[serde(skip)]
+    pub slug: &'static str,
+
     /// Default Background
     #[serde(deserialize_with = "deserialize_from_str")]
     pub base00: Color,
@@ -195,6 +254,52 @@ where
     } else {
         Color::from_str(&format!("#{s}")).map_err(de::Error::custom)
     }
+}
+
+palette! {
+    DRACULA,
+    "Dracula",
+    "Mike Barkmin (http://github.com/mikebarkmin) based on Dracula Theme (http://github.com/dracula)",
+    "",
+    0x00282936,
+    0x003a3c4e,
+    0x004d4f68,
+    0x00626483,
+    0x0062d6e8,
+    0x00e9e9f4,
+    0x00f1f2f8,
+    0x00f7f7fb,
+    0x00ea51b2,
+    0x00b45bcf,
+    0x0000f769,
+    0x00ebff87,
+    0x00a1efe4,
+    0x0062d6e8,
+    0x00b45bcf,
+    0x0000f769,
+}
+
+palette! {
+    GITHUB,
+    "Github",
+    "Defman21",
+    "",
+    0x00ffffff,
+    0x00f5f5f5,
+    0x00c8c8fa,
+    0x00969896,
+    0x00e8e8e8,
+    0x00333333,
+    0x00ffffff,
+    0x00ffffff,
+    0x00ed6a43,
+    0x000086b3,
+    0x00795da3,
+    0x00183691,
+    0x00183691,
+    0x00795da3,
+    0x00a71d5d,
+    0x00333333,
 }
 
 #[cfg(test)]

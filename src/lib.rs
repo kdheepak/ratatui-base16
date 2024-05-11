@@ -15,19 +15,36 @@ use thiserror::Error;
 #[derive(Error, Debug)]
 #[non_exhaustive]
 pub enum Base16PaletteError {
-    /// This error occurs when the extraction of data from a file or configuration fails.
+    /// This error occurs when the extraction of data from a file or
+    /// configuration fails.
     ///
-    /// This variant encapsulates a `figment::Error`, indicating that it originated
-    /// from the Figment configuration library, which might be used to handle configuration
-    /// data in various formats like JSON, TOML, YAML, etc.
+    /// This variant encapsulates a `figment::Error`, indicating that it
+    /// originated from the Figment configuration library, which might be
+    /// used to handle configuration data in various formats like JSON,
+    /// TOML, YAML, etc.
     #[error("unable to extract data from file")]
     ExtractionFailed(#[from] figment::Error),
 }
 
-/// A `Base16Palette` defines a color palette based on the Base16 styling guidelines.
-/// These color codes are typically used to create themes for syntax highlighting,
-/// terminal emulators, and other developer tools. Each field represents a different
-/// element of the user interface that can be customized.
+/// A `Base16Palette` defines a color palette based on the Base16 styling
+/// guidelines. These color codes are typically used to create themes for syntax
+/// highlighting, terminal emulators, and other developer tools. Each field
+/// represents a different element of the user interface that can be customized.
+/// Base16 aims to group similar language constructs with a single colour. For
+/// example, floats, ints, and doubles would belong to the same colour group.
+/// The colours for the default theme were chosen to be easily separable, but
+/// scheme designers should pick whichever colours they desire, e.g. base0B
+/// (green by default) could be replaced with red. There are, however, some
+/// general guidelines below that stipulate which base0B should be used to
+/// highlight each construct when designing templates for editors.
+///
+/// Colours base00 to base07 are typically variations of a shade and run from
+/// darkest to lightest. These colours are used for foreground and background,
+/// status bars, line highlighting and such. colours base08 to base0F are
+/// typically individual colours used for types, operators, names and variables.
+/// In order to create a dark theme, colours base00 to base07 should span from
+/// dark to light. For a light theme, these colours should span from light to
+/// dark.
 #[serde_as]
 #[derive(Debug, Clone, Copy, Deserialize, Serialize)]
 pub struct Base16Palette {
@@ -39,7 +56,8 @@ pub struct Base16Palette {
     #[serde_as(as = "DisplayFromStr")]
     pub base01: Color,
 
-    /// Selection Background (Settings where you need to highlight text, such as find results)
+    /// Selection Background (Settings where you need to highlight text, such as
+    /// find results)
     #[serde_as(as = "DisplayFromStr")]
     pub base02: Color,
 
@@ -55,7 +73,8 @@ pub struct Base16Palette {
     #[serde_as(as = "DisplayFromStr")]
     pub base05: Color,
 
-    /// Light Foreground (Not often used, could be used for hover states or dividers)
+    /// Light Foreground (Not often used, could be used for hover states or
+    /// dividers)
     #[serde_as(as = "DisplayFromStr")]
     pub base06: Color,
 
@@ -71,7 +90,7 @@ pub struct Base16Palette {
     #[serde_as(as = "DisplayFromStr")]
     pub base09: Color,
 
-    /// Classes, Keywords, Storage, Selector, Markup Italic, Diff Changed
+    /// Classes, Markup Bold, Search Text Background
     #[serde_as(as = "DisplayFromStr")]
     pub base0a: Color,
 
@@ -87,11 +106,11 @@ pub struct Base16Palette {
     #[serde_as(as = "DisplayFromStr")]
     pub base0d: Color,
 
-    /// Keywords, Storage, Selector, Markup Bold, Diff Renamed
+    /// Keywords, Storage, Selector, Markup Bold, Diff Changed
     #[serde_as(as = "DisplayFromStr")]
     pub base0e: Color,
 
-    /// Deprecated, Opening/Closing Embedded Language Tags
+    /// Deprecated, Opening/Closing Embedded Language Tags, e.g. `<?php ?>
     #[serde_as(as = "DisplayFromStr")]
     pub base0f: Color,
 }
@@ -99,19 +118,22 @@ pub struct Base16Palette {
 impl Base16Palette {
     /// Loads a `Base16Palette` instance from a YAML file.
     ///
-    /// Given a file path, this function uses Figment's `Yaml` provider to read and parse
-    /// the YAML content into a `Base16Palette` instance. This allows for loading the
-    /// color palette configuration from a YAML-formatted file.
+    /// Given a file path, this function uses Figment's `Yaml` provider to read
+    /// and parse the YAML content into a `Base16Palette` instance. This
+    /// allows for loading the color palette configuration from a
+    /// YAML-formatted file.
     ///
     /// # Arguments
     ///
-    /// * `file`: The file path pointing to the YAML configuration file. The file path
+    /// * `file`: The file path pointing to the YAML configuration file. The
+    ///   file path
     /// type is generic and can be any type that implements `Into<PathBuf>`.
     ///
     /// # Returns
     ///
-    /// If the function is successful, it returns `Ok(Base16Palette)`, the loaded palette instance.
-    /// If an error occurs during reading or parsing the file, it returns a `Base16PaletteError`.
+    /// If the function is successful, it returns `Ok(Base16Palette)`, the
+    /// loaded palette instance. If an error occurs during reading or
+    /// parsing the file, it returns a `Base16PaletteError`.
     ///
     /// # Examples
     ///
@@ -128,19 +150,22 @@ impl Base16Palette {
 
     /// Loads a `Base16Palette` instance from a TOML file.
     ///
-    /// Given a file path, this function uses Figment's `Toml` provider to read and parse
-    /// the TOML content into a `Base16Palette` instance. This allows for loading the
-    /// color palette configuration from a TOML-formatted file.
+    /// Given a file path, this function uses Figment's `Toml` provider to read
+    /// and parse the TOML content into a `Base16Palette` instance. This
+    /// allows for loading the color palette configuration from a
+    /// TOML-formatted file.
     ///
     /// # Arguments
     ///
-    /// * `file`: The file path pointing to the TOML configuration file. The file path
+    /// * `file`: The file path pointing to the TOML configuration file. The
+    ///   file path
     /// type is generic and can be any type that implements `Into<PathBuf>`.
     ///
     /// # Returns
     ///
-    /// If the function is successful, it returns `Ok(Base16Palette)`, the loaded palette instance.
-    /// If an error occurs during reading or parsing the file, it returns a `Base16PaletteError`.
+    /// If the function is successful, it returns `Ok(Base16Palette)`, the
+    /// loaded palette instance. If an error occurs during reading or
+    /// parsing the file, it returns a `Base16PaletteError`.
     ///
     /// # Examples
     ///

@@ -1,7 +1,7 @@
 #![doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/README.md"))]
 
 use figment::{
-    providers::{Format, Yaml},
+    providers::{Format, Toml, Yaml},
     Figment,
 };
 use ratatui::style::Color;
@@ -97,9 +97,60 @@ pub struct Base16Palette {
 }
 
 impl Base16Palette {
+    /// Loads a `Base16Palette` instance from a YAML file.
+    ///
+    /// Given a file path, this function uses Figment's `Yaml` provider to read and parse
+    /// the YAML content into a `Base16Palette` instance. This allows for loading the
+    /// color palette configuration from a YAML-formatted file.
+    ///
+    /// # Arguments
+    ///
+    /// * `file`: The file path pointing to the YAML configuration file. The file path
+    /// type is generic and can be any type that implements `Into<PathBuf>`.
+    ///
+    /// # Returns
+    ///
+    /// If the function is successful, it returns `Ok(Base16Palette)`, the loaded palette instance.
+    /// If an error occurs during reading or parsing the file, it returns a `Base16PaletteError`.
+    ///
+    /// # Examples
+    ///
+    /// ```rust
+    /// # use ratatui_base16::Base16Palette;
+    /// let palette_result = Base16Palette::from_yaml("path_to_file.yaml");
+    /// ```
     pub fn from_yaml(file: impl Into<PathBuf>) -> Result<Self, Base16PaletteError> {
         Figment::new()
             .merge(Yaml::file(file.into()))
+            .extract::<Base16Palette>()
+            .map_err(Base16PaletteError::ExtractionFailed)
+    }
+
+    /// Loads a `Base16Palette` instance from a TOML file.
+    ///
+    /// Given a file path, this function uses Figment's `Toml` provider to read and parse
+    /// the TOML content into a `Base16Palette` instance. This allows for loading the
+    /// color palette configuration from a TOML-formatted file.
+    ///
+    /// # Arguments
+    ///
+    /// * `file`: The file path pointing to the TOML configuration file. The file path
+    /// type is generic and can be any type that implements `Into<PathBuf>`.
+    ///
+    /// # Returns
+    ///
+    /// If the function is successful, it returns `Ok(Base16Palette)`, the loaded palette instance.
+    /// If an error occurs during reading or parsing the file, it returns a `Base16PaletteError`.
+    ///
+    /// # Examples
+    ///
+    /// ```rust
+    /// # use ratatui_base16::Base16Palette;
+    /// let palette_result = Base16Palette::from_toml("path_to_file.toml");
+    /// ```
+    pub fn from_toml(file: impl Into<PathBuf>) -> Result<Self, Base16PaletteError> {
+        Figment::new()
+            .merge(Toml::file(file.into()))
             .extract::<Base16Palette>()
             .map_err(Base16PaletteError::ExtractionFailed)
     }

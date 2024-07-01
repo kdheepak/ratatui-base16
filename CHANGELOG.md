@@ -6,6 +6,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.2](https://github.com/kdheepak/ratatui-base16/compare/v0.3.1...v0.3.2) - 2024-07-01
+
+### Added
+- Add dependabot.yml
+- Add default colors ([#10](https://github.com/kdheepak/ratatui-base16/pull/10))
+
+### Other
+- *(deps)* Bump the cargo-dependencies group with 5 updates ([#12](https://github.com/kdheepak/ratatui-base16/pull/12))
+
 ## [0.3.1](https://github.com/kdheepak/ratatui-base16/compare/v0.3.0...v0.3.1) - 2024-05-11
 
 ### Other

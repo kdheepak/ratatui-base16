@@ -49,7 +49,7 @@ pub enum Base16PaletteError {
 /// dark to light. For a light theme, these colours should span from light to
 /// dark.
 #[serde_as]
-#[derive(Debug, Clone, Deserialize, Serialize, Default)]
+#[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(rename_all = "snake_case")]
 pub struct Base16Palette {
     /// Name
@@ -129,6 +129,32 @@ pub struct Base16Palette {
     /// Deprecated, Opening/Closing Embedded Language Tags, e.g. `<?php ?>
     #[serde(deserialize_with = "deserialize_from_str")]
     pub base0f: Color,
+}
+
+impl Default for Base16Palette {
+    fn default() -> Self {
+        Self {
+            name: "Default",
+            author: "Dheepak Krishnamurthy",
+            slug: "ratatui-base16",
+            base00: Color::Indexed(0),
+            base01: Color::Indexed(1),
+            base02: Color::Indexed(2),
+            base03: Color::Indexed(3),
+            base04: Color::Indexed(4),
+            base05: Color::Indexed(5),
+            base06: Color::Indexed(6),
+            base07: Color::Indexed(7),
+            base08: Color::Indexed(8),
+            base09: Color::Indexed(9),
+            base0a: Color::Indexed(10),
+            base0b: Color::Indexed(11),
+            base0c: Color::Indexed(12),
+            base0d: Color::Indexed(13),
+            base0e: Color::Indexed(14),
+            base0f: Color::Indexed(15),
+        }
+    }
 }
 
 impl Base16Palette {

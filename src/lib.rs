@@ -49,7 +49,7 @@ pub enum Base16PaletteError {
 /// dark to light. For a light theme, these colours should span from light to
 /// dark.
 #[serde_as]
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, Deserialize, Serialize, Default)]
 #[serde(rename_all = "snake_case")]
 pub struct Base16Palette {
     /// Name

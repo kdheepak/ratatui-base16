@@ -12,6 +12,6 @@ documentation = "https://docs.rs/ratatui-base16"
 [dependencies]
 figment = { version = "0.10.19", features = ["env", "toml", "yaml"] }
 ratatui = { version = "0.27.0", features = ["serde"] }
-serde = "1.0.203"
-serde_with = "3.8.2"
+serde = "1.0.204"
+serde_with = "3.8.3"
 thiserror = "1.0.61"

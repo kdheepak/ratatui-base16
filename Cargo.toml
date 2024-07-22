@@ -14,4 +14,4 @@ figment = { version = "0.10.19", features = ["env", "toml", "yaml"] }
 ratatui = { version = "0.27.0", features = ["serde"] }
 serde = "1.0.204"
 serde_with = "3.9.0"
-thiserror = "1.0.62"
+thiserror = "1.0.63"

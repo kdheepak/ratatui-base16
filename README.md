@@ -21,10 +21,6 @@ use ratatui_base16::Base16Palette;
 let palette = Base16Palette::from_yaml("./config/dracula.yaml");
 ```
 
-## Contributing
-
-Please feel free to fork the repository, make your changes, and submit a pull request.
-
 ## License
 
 See [LICENSE](LICENSE) for details.

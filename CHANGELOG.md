@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.5](https://github.com/kdheepak/ratatui-base16/compare/v0.3.4...v0.3.5) - 2024-10-21
+
+### Other
+
+- *(deps)* Bump the cargo-dependencies group across 1 directory with 4 updates ([#25](https://github.com/kdheepak/ratatui-base16/pull/25))
+- *(deps)* Bump the cargo-dependencies group with 2 updates ([#20](https://github.com/kdheepak/ratatui-base16/pull/20))
+
 ## [0.3.4](https://github.com/kdheepak/ratatui-base16/compare/v0.3.3...v0.3.4) - 2024-08-19
 
 ### Other

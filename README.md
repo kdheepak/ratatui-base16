@@ -4,7 +4,7 @@
 [![Documentation](https://docs.rs/ratatui-base16/badge.svg)](https://docs.rs/ratatui-base16)
 [![LICENSE](https://img.shields.io/crates/l/ratatui-base16.svg)](./LICENSE)
 
-ratatui-base16 is a base16 palette library for the [Ratatui](https://github.com/ratatui-org/ratatui) crate in Rust.
+`ratatui-base16` is a base16 palette library for the [Ratatui](https://github.com/ratatui-org/ratatui) crate in Rust.
 
 ## Getting Started
 

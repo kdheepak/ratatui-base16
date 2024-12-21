@@ -11,7 +11,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Other
 
 - Update README.md (#32)
-- Update README.md
 
 ## [0.3.5](https://github.com/kdheepak/ratatui-base16/compare/v0.3.4...v0.3.5) - 2024-10-21
 

@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.7](https://github.com/kdheepak/ratatui-base16/compare/v0.3.6...v0.3.7) - 2024-12-21
+
+### Other
+
+- release v0.3.6 (#34)
+
 ## [0.3.6](https://github.com/kdheepak/ratatui-base16/compare/v0.3.5...v0.3.6) - 2024-12-21
 
 ### Other
